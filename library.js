@@ -35,7 +35,7 @@ plugin.addAdminNavigation = function(header, callback) {
 
 plugin.customHeaders = function(headers, callback) {
     for(var key in data) {
-        var field = meta.config[key];
+        var field = key;
         headers.headers.push({
             label: '[[user:' + field + ']]',
         });
@@ -46,7 +46,7 @@ plugin.customHeaders = function(headers, callback) {
 
 plugin.customFields = function(params, callback) {
     for(var key in data) {
-        var field = meta.config[key];
+        var field = key;
         var users = params.users.map(function(user) {
             if (!user.customRows) {
                 user.customRows = [];
@@ -61,7 +61,7 @@ plugin.customFields = function(params, callback) {
 
 plugin.addField = function(params, callback) {
     for(var key in data) {
-        var field = meta.config[key];
+        var field = key;
         console.log("Field: " + field);
         
         if (field == "") {
@@ -102,7 +102,7 @@ plugin.addField = function(params, callback) {
 
 plugin.checkField = function(params, callback) {
     for(var key in data) {
-        var answer = meta.config[data[key]];
+        var answer = data[key];
 
         if (answer == "") {
             callback({source: 'custom-registration-fields', message: 'not-filled'}, params);
@@ -113,15 +113,14 @@ plugin.checkField = function(params, callback) {
 };
 
 plugin.createUser = function(params, callback) {
+    var userData = params.user;
+    console.log("User Data: " + userData);
+
     for(var key in data) {
-        var field = meta.config[key];
-        var fieldData = params.data[field] || params.data[key];
-        var userData = params.user;
+        var field = key;
+        var fieldData = params.data[field];
 
-        console.log("User Data: " + userData);
-
-        if (!userData[field] && fieldData && fieldData != "") {
-            userData[field] = fieldData;
+        if (fieldData && fieldData != "") {
             data[key] = fieldData;
         }
     }
@@ -136,10 +135,12 @@ plugin.createUser = function(params, callback) {
 };
 
 plugin.addToApprovalQueue = function(params, callback) {
+    var userData = params.data;
+    console.log("User Data: " + userData);
+
     for (var key in data) {
-        var field = meta.config[key];
-        var fieldData = params.userData[key];
-        var userData = params.data;
+        var field = key;
+        var fieldData = params.userData[field];
         
         userData[field] = fieldData;
         data[field] = fieldData;
