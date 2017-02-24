@@ -34,37 +34,34 @@ plugin.addAdminNavigation = function(header, callback) {
 };
 
 plugin.customHeaders = function(headers, callback) {
-    // for (var field in data) {
-    //     headers.headers.push({
-    //         label: '[[user:' + field + ']]',
-    //     });
-    // }
-
-    var field = data.npi
-    
-    headers.headers.push({
-        label: '[[user:' + field + ']]',
-    });
+    for(var key in data) {
+        var field = meta.config[key];
+        headers.headers.push({
+            label: '[[user:' + field + ']]',
+        });
+    }
 
     callback(null, headers);
 };
 
 plugin.customFields = function(params, callback) {
-    var field = data.npi
-    var users = params.users.map(function(user) {
-        if (!user.customRows) {
-            user.customRows = [];
-        }
-        user.customRows.push({value: user[field]});
-        return user;
-    });
+    for(var key in data) {
+        var field = meta.config[key];
+        var users = params.users.map(function(user) {
+            if (!user.customRows) {
+                user.customRows = [];
+            }
+            user.customRows.push({value: user[field]});
+            return user;
+        });
+    }
 
     callback(null, {users: users});
 };
 
 plugin.addField = function(params, callback) {
-
-    for(var field in data) {
+    for(var key in data) {
+        var field = meta.config[key];
         console.log("Field: " + field);
         
         if (field == "") {
@@ -72,7 +69,21 @@ plugin.addField = function(params, callback) {
             return;
         }
 
-        var html = '<input class="form-control" name="' + field + '" id="' + field + '" />';
+        if (field === 'practicetype') {
+            var html = '<select class="form-control" name="field_practicetype"><option value="default" disabled="disabled">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select>';
+        }
+
+        else if (field === 'speciality') {
+            var html = '<select class="form-control" name="field_specialty"><option value="default" disabled="disabled">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select>';
+        }
+
+        else if (field === 'practiceyears') {
+            var html = '<select class="form-control" name="field_practiceyears"><option value="default" disabled="disabled">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select>';
+        }
+
+        else {
+            var html = '<input class="form-control" name="' + field + '" id="' + field + '" />';
+        }
 
         var captcha = {
             label: '[[user:' + field + ']]',
@@ -90,8 +101,8 @@ plugin.addField = function(params, callback) {
 };
 
 plugin.checkField = function(params, callback) {
-    for(var field in data) {
-        var answer = data[field];
+    for(var key in data) {
+        var answer = meta.config[data[key]];
 
         if (answer == "") {
             callback({source: 'custom-registration-fields', message: 'not-filled'}, params);
@@ -102,7 +113,18 @@ plugin.checkField = function(params, callback) {
 };
 
 plugin.createUser = function(params, callback) {
-    var userData = params.user;
+    for(var key in data) {
+        var field = meta.config[key];
+        var fieldData = params.data[field] || params.data[key];
+        var userData = params.user;
+
+        console.log("User Data: " + userData);
+
+        if (!userData[field] && fieldData && fieldData != "") {
+            userData[field] = fieldData;
+            data[key] = fieldData;
+        }
+    }
 
     db.setObject('user:' + userData.uid + ':ns:custom_fields', data, function(err) {
         if (err) {
@@ -110,22 +132,24 @@ plugin.createUser = function(params, callback) {
         }
     });
 
-    callback(null, params);
+    callback(null, userData);
 };
 
 plugin.addToApprovalQueue = function(params, callback) {
-    for (var field in data) {
-        var fieldData = params.userData[field];
+    for (var key in data) {
+        var field = meta.config[key];
+        var fieldData = params.userData[key];
         var userData = params.data;
         
+        userData[field] = fieldData;
         data[field] = fieldData;
     }
 
-    callback(null, {data: data});
+    callback(null, {data: userData});
 };
 
 function renderAdmin(req, res, next) {
-	res.render('admin/custom-registration-fields', {fields:fields});
+	res.render('admin/custom-registration-fields', {fields: data});
 }
 
 module.exports = plugin;
