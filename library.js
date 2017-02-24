@@ -70,15 +70,15 @@ plugin.addField = function(params, callback) {
         }
 
         if (field === 'practicetype') {
-            var html = '<select class="form-control" name="field_practicetype"><option value="default" disabled="disabled">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select>';
+            var html = '<div class="control-group"><label class="control-label" for="' + field + '">Practice Type</label><div class="controls"><select class="form-control" name="' + field + '"><option value="default" disabled="disabled">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select></div></div>';
         }
 
         else if (field === 'speciality') {
-            var html = '<select class="form-control" name="field_specialty"><option value="default" disabled="disabled">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select>';
+            var html = '<div class="control-group"><label class="control-label" for="' + field + '">Specialty</label><div class="controls"><select class="form-control" name="' + field + '" id="' + field + '"><option value="default" disabled="disabled">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select></div></div>';
         }
 
         else if (field === 'practiceyears') {
-            var html = '<select class="form-control" name="field_practiceyears"><option value="default" disabled="disabled">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select>';
+            var html = '<div class="control-group"><label class="control-label" for="' + field + '">Years in Practice</label><div class="controls"><select class="form-control" name="' + field + '" id="' + field + '"><option value="default" disabled="disabled">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select></div></div>';
         }
 
         else {
