@@ -1,0 +1,29 @@
+{
+  "name": "nodebb-plugin-custom-registration-fields",
+  "version": "0.1.0",
+  "description": "Adds custom fields to user registration page to input additional profile data",
+  "main": "library.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btw6391/node-plugin-custom-registration-fields.git"
+  },
+  "keywords": [
+    "NodeBB",
+    "plugin",
+    "custom",
+    "registration",
+    "field"
+  ],
+  "author": "btw6391 <btw6391@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/btw6391/node-plugin-custom-registration-fields/issues"
+  },
+  "homepage": "https://github.com/btw6391/node-plugin-custom-registration-fields#readme",
+  "nbbpm": {
+    "compatibility": "^1.1.0 || ^1.2.0 || ^1.4.0"
+  }
+}

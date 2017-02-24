@@ -1,0 +1,27 @@
+{
+	"id": "nodebb-plugin-custom-registration-fields",
+	"name": "Custom Registration Fields",
+	"description": "Adds custom fields to user registration page to input additional profile data",
+	"url": "https://github.com/btw6391/nodebb-plugin-custom-registration-fields",
+	"library": "./library.js",
+	"hooks": [
+		{ "hook": "static:app.load", "method": "init" },
+		{ "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
+		{ "hook": "filter:register.build", "method": "addField" },
+		{ "hook": "filter:register.check", "method": "checkField" },
+        { "hook": "filter:admin.registrationQueue.customHeaders", "method": "customHeaders" },
+        { "hook": "filter:user.getRegistrationQueue", "method": "customFields" },
+		{ "hook": "filter:user.create", "method": "createUser" },
+        { "hook": "filter:user.addToApprovalQueue", "method": "addToApprovalQueue" }
+	],
+	"staticDirs": {
+		"static": "./static"
+	},
+	"less": [
+		"static/style.less"
+	],
+	"scripts": [
+		"static/lib/main.js"
+	],
+	"templates": "static/templates"
+}
