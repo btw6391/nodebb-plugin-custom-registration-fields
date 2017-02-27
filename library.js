@@ -156,7 +156,7 @@ plugin.createUser = function(params, callback) {
 
 plugin.addToApprovalQueue = function(params, callback) {
     var userData = params.data;
-    console.log("User Data: " + JSON.stringify(userData));
+    console.dir(userData);
 
     for (var key in customFields) {
         var fieldText = key + ':field';
