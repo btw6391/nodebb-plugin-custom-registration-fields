@@ -34,11 +34,11 @@ plugin.addAdminNavigation = function(header, callback) {
 
 plugin.customHeaders = function(headers, callback) {
     for(var key in customFields) {
-        var fieldText = key + ':field';
-        var field = meta.config[fieldText];
+        // var fieldText = key + ':field';
+        // var field = meta.config[fieldText];
         
         headers.headers.push({
-            label: '[[user:' + field + ']]',
+            label: '[[user:' + key + ']]',
         });
     }
 
@@ -121,7 +121,7 @@ plugin.checkField = function(params, callback) {
         var answerText = key + ':answer';
         var answer = meta.config[answerText];
 
-        console.log("Answer:" + answerText);
+        console.log("Answer: " + answerText);
 
         if (answer == "") {
             callback({source: key, message: 'not-filled'}, params);
@@ -159,7 +159,6 @@ plugin.createUser = function(params, callback) {
 
 plugin.addToApprovalQueue = function(params, callback) {
     var userData = params.data;
-    console.dir(userData);
 
     for (var key in customFields) {
         var fieldText = key + ':field';
@@ -169,6 +168,8 @@ plugin.addToApprovalQueue = function(params, callback) {
         userData[field] = fieldData;
         customFields[key] = fieldData;
     }
+
+    console.dir(userData);
 
     callback(null, {data: userData});
 };
