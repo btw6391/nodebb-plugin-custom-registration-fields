@@ -36,6 +36,7 @@ plugin.customHeaders = function(headers, callback) {
     for(var key in customFields) {
         var fieldText = key + ':field';
         var field = meta.config[fieldText];
+        
         headers.headers.push({
             label: '[[user:' + field + ']]',
         });
@@ -48,6 +49,7 @@ plugin.customFields = function(params, callback) {
     for(var key in customFields) {
         var fieldText = key + ':field';
         var field = meta.config[fieldText];
+        
         var users = params.users.map(function(user) {
             if (!user.customRows) {
                 user.customRows = [];
@@ -64,6 +66,7 @@ plugin.addField = function(params, callback) {
     for(var key in customFields) {
         var fieldText = key + ':field';
         var field = meta.config[fieldText];
+        
         console.log("Field: " + fieldText);
         
         if (key == "") {
@@ -118,7 +121,7 @@ plugin.checkField = function(params, callback) {
         var answerText = key + ':answer';
         var answer = meta.config[answerText];
 
-        console.log("Answer:" answerText);
+        console.log("Answer:" + answerText);
 
         if (answer == "") {
             callback({source: key, message: 'not-filled'}, params);
