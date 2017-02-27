@@ -35,7 +35,7 @@ plugin.addAdminNavigation = function(header, callback) {
 
 plugin.customHeaders = function(headers, callback) {
     for(var key in data) {
-        var field = key;
+        var field = meta.config[key + ':field'];
         headers.headers.push({
             label: '[[user:' + field + ']]',
         });
@@ -46,7 +46,7 @@ plugin.customHeaders = function(headers, callback) {
 
 plugin.customFields = function(params, callback) {
     for(var key in data) {
-        var field = key;
+        var field = meta.config[key + ':field'];
         var users = params.users.map(function(user) {
             if (!user.customRows) {
                 user.customRows = [];
@@ -61,28 +61,28 @@ plugin.customFields = function(params, callback) {
 
 plugin.addField = function(params, callback) {
     for(var key in data) {
-        var field = key;
+        var field = meta.config[key + ':field'];
         console.log("Field: " + field);
         
-        if (field == "") {
+        if (key == "") {
             callback(null, params);
             return;
         }
 
-        if (field === 'practicetype') {
-            var html = '<div class="control-group"><label class="control-label" for="' + field + '">Practice Type</label><div class="controls"><select class="form-control" name="' + field + '"><option value="default" disabled="disabled">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select></div></div>';
+        if (key === 'practicetype') {
+            var html = '<div class="control-group"><label class="control-label" for="' + key + '">Practice Type</label><div class="controls"><select class="form-control" name="' + key + '" id="' + key + '"><option value="default" disabled="disabled">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select></div></div>';
         }
 
-        else if (field === 'speciality') {
-            var html = '<div class="control-group"><label class="control-label" for="' + field + '">Specialty</label><div class="controls"><select class="form-control" name="' + field + '" id="' + field + '"><option value="default" disabled="disabled">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select></div></div>';
+        else if (key === 'speciality') {
+            var html = '<div class="control-group"><label class="control-label" for="' + key + '">Specialty</label><div class="controls"><select class="form-control" name="' + key + '" id="' + key + '"><option value="default" disabled="disabled">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select></div></div>';
         }
 
-        else if (field === 'practiceyears') {
-            var html = '<div class="control-group"><label class="control-label" for="' + field + '">Years in Practice</label><div class="controls"><select class="form-control" name="' + field + '" id="' + field + '"><option value="default" disabled="disabled">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select></div></div>';
+        else if (key === 'practiceyears') {
+            var html = '<div class="control-group"><label class="control-label" for="' + key + '">Years in Practice</label><div class="controls"><select class="form-control" name="' + key + '" id="' + key + '"><option value="default" disabled="disabled">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select></div></div>';
         }
 
         else {
-            var html = '<input class="form-control" name="' + field + '" id="' + field + '" />';
+            var html = '<input class="form-control" name="' + key + '" id="' + key + '" />';
         }
 
         var captcha = {
@@ -102,14 +102,14 @@ plugin.addField = function(params, callback) {
 
 plugin.checkField = function(params, callback) {
     for(var key in data) {
-        var answer = data[key];
+        var answer = meta.config[key + ':answer'];
 
         if (answer == "") {
-            callback({source: 'custom-registration-fields', message: 'not-filled'}, params);
-        } else {
-            callback(null, params);
+            callback({source: key, message: 'not-filled'}, params);
         }
     }
+
+    callback(null, params);
 };
 
 plugin.createUser = function(params, callback) {
@@ -117,10 +117,10 @@ plugin.createUser = function(params, callback) {
     console.log("User Data: " + userData);
 
     for(var key in data) {
-        var field = key;
-        var fieldData = params.data[field];
+        var field = meta.config[key + ':field'];
+        var fieldData = params.data[field] || params.data[key];
 
-        if (fieldData && fieldData != "") {
+        if (!userData[field] && fieldData && fieldData != "") {
             data[key] = fieldData;
         }
     }
@@ -139,11 +139,10 @@ plugin.addToApprovalQueue = function(params, callback) {
     console.log("User Data: " + userData);
 
     for (var key in data) {
-        var field = key;
-        var fieldData = params.userData[field];
+        var field = meta.config[key + ':field'];
+        var fieldData = params.userData[key];
         
-        userData[field] = fieldData;
-        data[field] = fieldData;
+        data[key] = fieldData;
     }
 
     callback(null, {data: userData});
