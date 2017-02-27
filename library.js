@@ -47,7 +47,7 @@ plugin.customHeaders = function(headers, callback) {
 
 plugin.customFields = function(params, callback) {
     for(var key in customFields) {
-        var fieldText = key + ':field';
+        var fieldText = JSON.stringify(key) + ':field'
         var field = meta.config[fieldText];
         
         var users = params.users.map(function(user) {
@@ -64,7 +64,7 @@ plugin.customFields = function(params, callback) {
 
 plugin.addField = function(params, callback) {
     for(var key in customFields) {
-        var fieldText = key + ':field';
+        var fieldText = JSON.stringify(key) + ':field';
         var field = meta.config[fieldText];
         
         console.log("Field: " + fieldText);
@@ -118,7 +118,7 @@ plugin.addField = function(params, callback) {
 
 plugin.checkField = function(params, callback) {
     for(var key in customFields) {
-        var answerText = key + ':answer';
+        var answerText = JSON.stringify(key) + ':answer';
         var answer = meta.config[answerText];
 
         console.log("Answer: " + answerText);
@@ -136,7 +136,7 @@ plugin.createUser = function(params, callback) {
     console.log("User ID: " + userData.uid);
 
     for(var key in customFields) {
-        var fieldText = key + ':field';
+        var fieldText = JSON.stringify(key) + ':field';
         var field = meta.config[fieldText];
         var fieldData = params.data[field] || params.data[key];
 
@@ -161,7 +161,7 @@ plugin.addToApprovalQueue = function(params, callback) {
     var userData = params.data;
 
     for (var key in customFields) {
-        var fieldText = key + ':field';
+        var fieldText = JSON.stringify(key) + ':field';
         var field = meta.config[fieldText];
         var fieldData = params.userData[key];
         
