@@ -64,7 +64,7 @@ plugin.addField = function(params, callback) {
     for(var key in customFields) {
         var fieldText = key + ':field';
         var field = meta.config[fieldText];
-        console.log("Field: " + field);
+        console.log("Field: " + fieldText);
         
         if (key == "") {
             callback(null, params);
@@ -118,7 +118,7 @@ plugin.checkField = function(params, callback) {
         var answerText = key + ':answer';
         var answer = meta.config[answerText];
 
-        console.log(answer);
+        console.log("Answer:" answerText);
 
         if (answer == "") {
             callback({source: key, message: 'not-filled'}, params);
@@ -156,7 +156,7 @@ plugin.createUser = function(params, callback) {
 
 plugin.addToApprovalQueue = function(params, callback) {
     var userData = params.data;
-    console.log("User Data: " + userData);
+    console.log("User Data: " + JSON.stringify(userData));
 
     for (var key in customFields) {
         var fieldText = key + ':field';
