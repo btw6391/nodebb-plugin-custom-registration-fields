@@ -34,7 +34,8 @@ plugin.addAdminNavigation = function(header, callback) {
 
 plugin.customHeaders = function(headers, callback) {
     for(var key in customFields) {
-        var field = meta.config[key + ':field'];
+        var fieldText = key + ':field';
+        var field = meta.config[fieldText];
         headers.headers.push({
             label: '[[user:' + field + ']]',
         });
@@ -45,7 +46,8 @@ plugin.customHeaders = function(headers, callback) {
 
 plugin.customFields = function(params, callback) {
     for(var key in customFields) {
-        var field = meta.config[key + ':field'];
+        var fieldText = key + ':field';
+        var field = meta.config[fieldText];
         var users = params.users.map(function(user) {
             if (!user.customRows) {
                 user.customRows = [];
@@ -60,7 +62,8 @@ plugin.customFields = function(params, callback) {
 
 plugin.addField = function(params, callback) {
     for(var key in customFields) {
-        var field = meta.config[key + ':field'];
+        var fieldText = key + ':field';
+        var field = meta.config[fieldText];
         console.log("Field: " + field);
         
         if (key == "") {
@@ -81,17 +84,17 @@ plugin.addField = function(params, callback) {
             
             case 'practicetype':
                 var html = '<select class="form-control" name="practicetype" id="practicetype"><option value="default" disabled="disabled">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select>';
-                var label = "NPI #";
+                var label = "Practice Type";
                 break;
             
             case 'speciality':
                 var html = '<select class="form-control" name="speciality" id="speciality"><option value="default" disabled="disabled">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select>';
-                var label = "NPI #";
+                var label = "Speciality";
                 break;
             
             case 'practiceyears':
                 var html = '<select class="form-control" name="practiceyears" id="practiceyears"><option value="default" disabled="disabled">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select>';
-                var label = "NPI #";
+                var label = "Practice Years";
                 break;
         }
 
@@ -112,7 +115,8 @@ plugin.addField = function(params, callback) {
 
 plugin.checkField = function(params, callback) {
     for(var key in customFields) {
-        var answer = meta.config[key + ':answer'];
+        var answerText = key + ':answer';
+        var field = meta.config[answerText];
 
         if (answer == "") {
             callback({source: key, message: 'not-filled'}, params);
@@ -127,10 +131,12 @@ plugin.createUser = function(params, callback) {
     console.log("User ID: " + userData.uid);
 
     for(var key in customFields) {
-        var field = meta.config[key + ':field'];
+        var fieldText = key + ':field';
+        var field = meta.config[fieldText];
         var fieldData = params.data[field] || params.data[key];
 
         if (!userData[field] && fieldData && fieldData != "") {
+            userData[field] = fieldData;
             customFields[key] = fieldData;
         }
     }
@@ -151,9 +157,11 @@ plugin.addToApprovalQueue = function(params, callback) {
     console.log("User Data: " + userData);
 
     for (var key in customFields) {
-        var field = meta.config[key + ':field'];
+        var fieldText = key + ':field';
+        var field = meta.config[fieldText];
         var fieldData = params.userData[key];
         
+        userData[field] = fieldData;
         customFields[key] = fieldData;
     }
 
