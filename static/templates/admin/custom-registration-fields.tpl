@@ -1,14 +1,14 @@
-<h1>Add Registration Fields</h1>
+<h1>Custom Registration Fields</h1>
 <hr />
 
 <form>
 	<p>
-		Select user profile field user should fill in during registration
+		Select new fields that user should fill in during registration
 	</p><br />
 	<div class="alert alert-info">
 		<p>
 			<label for="Field">Field:&nbsp;</label>
-            <select data-field="add-registration-fields:field" class="profile-field-select">
+            <select data-field="customFields">
                 <option value="">Nothing</option>
                 <!-- BEGIN fields -->
                 <option value="@value">@value</option>
