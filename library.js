@@ -116,7 +116,9 @@ plugin.addField = function(params, callback) {
 plugin.checkField = function(params, callback) {
     for(var key in customFields) {
         var answerText = key + ':answer';
-        var field = meta.config[answerText];
+        var answer = meta.config[answerText];
+
+        console.log(answer);
 
         if (answer == "") {
             callback({source: key, message: 'not-filled'}, params);
