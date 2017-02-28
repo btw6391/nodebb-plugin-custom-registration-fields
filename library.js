@@ -112,7 +112,7 @@ plugin.customFields = function(params, callback) {
             return user;
         });
 
-        console.log(" : " + customFields[key]);
+        console.log("Custom Value: " + customFields[key]);
     }
 
     console.dir(users);
@@ -210,40 +210,40 @@ plugin.checkField = function(params, callback) {
 plugin.createUser = function(params, callback) {
     var userData = params.user;
 
-    for(var key in customFields) {
+    // for(var key in customFields) {
 
-        switch(key) {
-            case 'npi':
-                // var field = meta.config['npi:field'];
-                var fieldData = params.data['npi'];
-                break;
+    //     switch(key) {
+    //         case 'npi':
+    //             // var field = meta.config['npi:field'];
+    //             var fieldData = params.data['npi'];
+    //             break;
             
-            case 'institution':
-                // var field = meta.config['institution:field'];
-                var fieldData = params.data['institution'];
-                break;
+    //         case 'institution':
+    //             // var field = meta.config['institution:field'];
+    //             var fieldData = params.data['institution'];
+    //             break;
             
-            case 'practicetype':
-                // var field = meta.config['practicetype:field'];
-                var fieldData = params.data['practicetype'];
-                break;
+    //         case 'practicetype':
+    //             // var field = meta.config['practicetype:field'];
+    //             var fieldData = params.data['practicetype'];
+    //             break;
             
-            case 'speciality':
-                // var field = meta.config['speciality:field'];
-                var fieldData = params.data['speciality'];
-                break;
+    //         case 'speciality':
+    //             // var field = meta.config['speciality:field'];
+    //             var fieldData = params.data['speciality'];
+    //             break;
             
-            case 'practiceyears':
-                // var field = meta.config['practiceyears:field'];
-                var fieldData = params.data['practiceyears'];
-                break;
-        }
+    //         case 'practiceyears':
+    //             // var field = meta.config['practiceyears:field'];
+    //             var fieldData = params.data['practiceyears'];
+    //             break;
+    //     }
 
-        if (fieldData && fieldData != "") {
-            // userData[field] = fieldData;
-            customFields[key] = fieldData;
-        }
-    }
+    //     if (fieldData && fieldData != "") {
+    //         // userData[field] = fieldData;
+    //         customFields[key] = fieldData;
+    //     }
+    // }
 
     db.setObject('user:' + userData.uid + ':ns:custom_fields', customFields, function(err) {
         if (err) {
@@ -251,9 +251,7 @@ plugin.createUser = function(params, callback) {
         }
     });
 
-    // user.getUsers([2], 1, function(err, users) {
-    //     console.log(users);
-    // });
+    console.log("Custom Fields: " + customFields);
 
     callback(null, userData);
 };
