@@ -8,7 +8,6 @@ var customFields = {
         practiceyears : ""
     },
     user = module.parent.require('./user'),
-	meta = module.parent.require('./meta'),
     db = module.parent.require('./database'),
     plugin = {};
 

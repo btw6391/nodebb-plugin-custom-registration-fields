@@ -1,4 +1,4 @@
-<h1>Custom Registration Fields</h1>
+<!-- <h1>Custom Registration Fields</h1>
 <hr />
 
 <form>
@@ -10,9 +10,7 @@
 			<label for="Field">Field:&nbsp;</label>
             <select data-field="customFields">
                 <option value="">Nothing</option>
-                <!-- BEGIN fields -->
                 <option value="@value">@value</option>
-                <!-- END fields -->
             </select>
 
 		</p>
@@ -25,4 +23,4 @@
 	require(['admin/settings'], function(Settings) {
 		Settings.prepare();
 	});
-</script>
+</script> -->
