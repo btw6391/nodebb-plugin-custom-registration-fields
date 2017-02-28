@@ -143,8 +143,6 @@ plugin.checkField = function(params, callback) {
         if (userData[key] == "" || userData[key] == undefined) {
             callback({message: 'Please complete all fields before registering.'}, params);
         }
-
-        console.log("Answer: " + answer);
     }
 
     callback(null, params);
