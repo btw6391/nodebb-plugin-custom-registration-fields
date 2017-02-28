@@ -190,7 +190,7 @@ plugin.checkField = function(params, callback) {
                 break;
         }
 
-        if (answer == "") {
+        if (answer == "" || answer == undefined) {
             callback({source: answer, message: 'not-filled'}, params);
         }
 
