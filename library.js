@@ -95,12 +95,12 @@ plugin.addField = function(params, callback) {
 
         switch(key) {
             case 'npi':
-                var html = '<input class="form-control" name="npi" id="npi" />';
+                var html = '<input class="form-control" name="npi" id="npi" placeholder="Enter NPI #" />';
                 var label = "NPI #";
                 break;
             
             case 'institution':
-                var html = '<input class="form-control" name="institution" id="institution" />';
+                var html = '<input class="form-control" name="institution" id="institution" placeholder="Enter Institution" />';
                 var label = "Institution";
                 break;
             
