@@ -191,7 +191,7 @@ plugin.checkField = function(params, callback) {
         }
 
         if (answer == "") {
-            callback({source: key, message: 'not-filled'}, params);
+            callback({source: answer, message: 'not-filled'}, params);
         }
 
         console.log("Answer: " + answer);
@@ -302,10 +302,6 @@ plugin.addToApprovalQueue = function(params, callback) {
 
     console.dir(userData);
     console.log(customFields);
-    
-    user.getUsers([2], 1, function(err, users) {
-        console.log(users);
-    });
 
     callback(null, {data: userData});
 };
