@@ -137,15 +137,16 @@ plugin.addField = function(params, callback) {
 
 plugin.checkField = function(params, callback) {
     var userData = params.userData;
+    var error = null;
 
     for(var key in customFields) {
 
         if (userData[key] == "" || userData[key] == undefined) {
-            callback({message: 'Please complete all fields before registering.'}, params);
+            error = {message: 'Please complete all fields before registering.'};
         }
     }
 
-    callback(null, params);
+    callback(error, params);
 };
 
 plugin.createUser = function(params) {
