@@ -207,7 +207,7 @@ plugin.checkField = function(params, callback) {
     callback(null, params);
 };
 
-plugin.createUser = function(params, callback) {
+plugin.createUser = function(params) {
     // var userData = params.user;
 
     // for(var key in customFields) {
@@ -245,17 +245,16 @@ plugin.createUser = function(params, callback) {
     //     }
     // }
 
-    var key = 'user:' + params.uid + ':ns:custom_fields';
+    var keyID = 'user:' + params.uid + ':ns:custom_fields';
 
-    db.setObject(key, customFields, function(err) {
+    db.setObject(keyID, customFields, function(err) {
         if (err) {
             return callback(err);
         }
     });
 
-    console.log("Custom Fields: " + customFields);
-
-    callback(null, params);
+    console.log(keyID);
+    console.dir(customFields);
 };
 
 plugin.addToApprovalQueue = function(params, callback) {
