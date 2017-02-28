@@ -11,7 +11,7 @@
 		{ "hook": "filter:register.check", "method": "checkField" },
         { "hook": "filter:admin.registrationQueue.customHeaders", "method": "customHeaders" },
         { "hook": "filter:user.getRegistrationQueue", "method": "customFields" },
-		{ "hook": "filter:user.create", "method": "createUser" },
+		{ "hook": "action:user.create", "method": "createUser" },
         { "hook": "filter:user.addToApprovalQueue", "method": "addToApprovalQueue" }
 	],
 	"staticDirs": {

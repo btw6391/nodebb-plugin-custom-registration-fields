@@ -112,7 +112,7 @@ plugin.customFields = function(params, callback) {
             return user;
         });
 
-        console.log("Custom Value: " + customFields[key]);
+        console.log(" : " + customFields[key]);
     }
 
     console.dir(users);
@@ -245,17 +245,15 @@ plugin.createUser = function(params, callback) {
         }
     }
 
-    // db.setObject('user:' + userData.uid + ':ns:custom_fields', customFields, function(err) {
-    //     if (err) {
-    //         return callback(err);
-    //     }
-    // });
-
-    console.log("Custom Fields: " + customFields);
-
-    user.getUsers([2], 1, function(err, users) {
-        console.log(users);
+    db.setObject('user:' + userData.uid + ':ns:custom_fields', customFields, function(err) {
+        if (err) {
+            return callback(err);
+        }
     });
+
+    // user.getUsers([2], 1, function(err, users) {
+    //     console.log(users);
+    // });
 
     callback(null, userData);
 };
