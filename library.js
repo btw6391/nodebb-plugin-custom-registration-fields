@@ -209,7 +209,6 @@ plugin.checkField = function(params, callback) {
 
 plugin.createUser = function(params, callback) {
     // var userData = params.user;
-    console.dir(params);
 
     // for(var key in customFields) {
 
@@ -246,7 +245,9 @@ plugin.createUser = function(params, callback) {
     //     }
     // }
 
-    db.setObject('user:' + params.uid + ':ns:custom_fields', customFields, function(err) {
+    var key = 'user:' + params.uid + ':ns:custom_fields';
+
+    db.setObject(key, customFields, function(err) {
         if (err) {
             return callback(err);
         }
@@ -254,7 +255,7 @@ plugin.createUser = function(params, callback) {
 
     console.log("Custom Fields: " + customFields);
 
-    callback(null, userData);
+    callback(null, params);
 };
 
 plugin.addToApprovalQueue = function(params, callback) {
