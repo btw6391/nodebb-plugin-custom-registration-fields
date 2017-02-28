@@ -33,38 +33,69 @@ plugin.addAdminNavigation = function(header, callback) {
 	callback(null, header);
 };
 
+// plugin.customHeaders = function(headers, callback) {
+//     for(var key in customFields) {
+
+//         switch(key) {
+//             case 'npi':
+//                 var field = meta.config['npi:field'];
+//                 break;
+            
+//             case 'institution':
+//                 var field = meta.config['institution:field'];
+//                 break;
+            
+//             case 'practicetype':
+//                 var field = meta.config['practicetype:field'];
+//                 break;
+            
+//             case 'speciality':
+//                 var field = meta.config['speciality:field'];
+//                 break;
+            
+//             case 'practiceyears':
+//                 var field = meta.config['practiceyears:field'];
+//                 break;
+//         }
+        
+//         headers.headers.push({
+//             label: '[[user:' + field + ']]',
+//         });
+
+//         console.log("Custom Header: " + field);
+//     }
+
+//     callback(null, headers);
+// };
+
 plugin.customHeaders = function(headers, callback) {
     for(var key in customFields) {
-        // var fieldText = key + ':field';
-        // var field = meta.config[fieldText];
 
         switch(key) {
             case 'npi':
-                var field = meta.config['npi:field'];
+                var label = "NPI #";
                 break;
             
             case 'institution':
-                var field = meta.config['institution:field'];
+                var label = "Institution";
                 break;
             
             case 'practicetype':
-                var field = meta.config['practicetype:field'];
+                var label = "Practice Type";
                 break;
             
             case 'speciality':
-                var field = meta.config['speciality:field'];
+                var label = "Speciality";
                 break;
             
             case 'practiceyears':
-                var field = meta.config['practiceyears:field'];
+                var label = "Practice Years";
                 break;
         }
         
         headers.headers.push({
-            label: '[[user:' + field + ']]',
+            label: label
         });
-
-        console.log("Custom Header: " + field);
     }
 
     callback(null, headers);
@@ -72,41 +103,19 @@ plugin.customHeaders = function(headers, callback) {
 
 plugin.customFields = function(params, callback) {
     for(var key in customFields) {
-        // var fieldText = key + ':field';
-        // var field = meta.config[fieldText];
-
-        switch(key) {
-            case 'npi':
-                var field = meta.config['npi:field'];
-                break;
-            
-            case 'institution':
-                var field = meta.config['institution:field'];
-                break;
-            
-            case 'practicetype':
-                var field = meta.config['practicetype:field'];
-                break;
-            
-            case 'speciality':
-                var field = meta.config['speciality:field'];
-                break;
-            
-            case 'practiceyears':
-                var field = meta.config['practiceyears:field'];
-                break;
-        }
         
         var users = params.users.map(function(user) {
             if (!user.customRows) {
                 user.customRows = [];
             }
-            user.customRows.push({value: user[field]});
+            user.customRows.push({value: customFields[key]});
             return user;
         });
 
-        console.log("Custom Field: " + user[field]);
+        console.log("Custom Value: " + customFields[key]);
     }
+
+    console.dir(users);
 
     callback(null, {users: users});
 };
@@ -163,10 +172,6 @@ plugin.addField = function(params, callback) {
 
 plugin.checkField = function(params, callback) {
     for(var key in customFields) {
-        // var answerText = key + ':answer';
-        // var answer = meta.config[answerText];
-
-        // console.log("Answer: " + answerText);
 
         switch(key) {
             case 'npi':
@@ -202,42 +207,38 @@ plugin.checkField = function(params, callback) {
 
 plugin.createUser = function(params, callback) {
     var userData = params.user;
-    console.log("User ID: " + userData.uid);
 
     for(var key in customFields) {
-        // var fieldText = key + ':field';
-        // var field = meta.config[fieldText];
-        // var fieldData = params.data[field] || params.data[key];
 
         switch(key) {
             case 'npi':
-                var field = meta.config['npi:field'];
-                var fieldData = params.data[field] || params.data['npi'];
+                // var field = meta.config['npi:field'];
+                var fieldData = params.data['npi'];
                 break;
             
             case 'institution':
-                var field = meta.config['institution:field'];
-                var fieldData = params.data[field] || params.data['institution'];
+                // var field = meta.config['institution:field'];
+                var fieldData = params.data['institution'];
                 break;
             
             case 'practicetype':
-                var field = meta.config['practicetype:field'];
-                var fieldData = params.data[field] || params.data['practicetype'];
+                // var field = meta.config['practicetype:field'];
+                var fieldData = params.data['practicetype'];
                 break;
             
             case 'speciality':
-                var field = meta.config['speciality:field'];
-                var fieldData = params.data[field] || params.data['speciality'];
+                // var field = meta.config['speciality:field'];
+                var fieldData = params.data['speciality'];
                 break;
             
             case 'practiceyears':
-                var field = meta.config['practiceyears:field'];
-                var fieldData = params.data[field] || params.data['practiceyears'];
+                // var field = meta.config['practiceyears:field'];
+                var fieldData = params.data['practiceyears'];
                 break;
         }
 
-        if (!userData[field] && fieldData && fieldData != "") {
-            userData[field] = fieldData;
+        if (fieldData && fieldData != "") {
+            // userData[field] = fieldData;
             customFields[key] = fieldData;
         }
     }
@@ -249,7 +250,6 @@ plugin.createUser = function(params, callback) {
     // });
 
     console.log("Custom Fields: " + customFields);
-    console.dir(userData);
 
     user.getUsers([2], 1, function(err, users) {
         console.log(users);
@@ -262,45 +262,41 @@ plugin.addToApprovalQueue = function(params, callback) {
     var userData = params.data;
 
     for (var key in customFields) {
-        // var fieldText = key + ':field';
-        // var field = meta.config[fieldText];
 
         switch(key) {
             case 'npi':
-                var field = meta.config['npi:field'];
+                // var field = meta.config['npi:field'];
                 var fieldData = params.userData['npi'];
                 break;
             
             case 'institution':
-                var field = meta.config['institution:field'];
+                // var field = meta.config['institution:field'];
                 var fieldData = params.userData['institution'];
                 break;
             
             case 'practicetype':
-                var field = meta.config['practicetype:field'];
+                // var field = meta.config['practicetype:field'];
                 var fieldData = params.userData['practicetype'];
                 break;
             
             case 'speciality':
-                var field = meta.config['speciality:field'];
+                // var field = meta.config['speciality:field'];
                 var fieldData = params.userData['speciality'];
                 break;
             
             case 'practiceyears':
-                var field = meta.config['practiceyears:field'];
+                // var field = meta.config['practiceyears:field'];
                 var fieldData = params.userData['practiceyears'];
                 break;
         }
-
-        // var fieldData = params.userData[key];
         
-        userData[field] = fieldData;
+        // userData[field] = fieldData;
         customFields[key] = fieldData;
 
         console.log("Field data: " + fieldData);
     }
 
-    console.dir(userData);
+    // console.dir(userData);
     console.log(customFields);
 
     callback(null, {data: userData});
