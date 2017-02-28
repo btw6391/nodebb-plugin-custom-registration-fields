@@ -13,15 +13,15 @@
         { "hook": "filter:user.getRegistrationQueue", "method": "customFields" },
 		{ "hook": "action:user.create", "method": "createUser" },
         { "hook": "filter:user.addToApprovalQueue", "method": "addToApprovalQueue" }
-	]
-	// "staticDirs": {
-	// 	"static": "./static"
-	// },
-	// "less": [
-	// 	"static/style.less"
-	// ],
-	// "scripts": [
-	// 	"static/lib/main.js"
-	// ],
-	// "templates": "static/templates"
+	],
+	"staticDirs": {
+		"static": "./static"
+	},
+	"less": [
+		"static/style.less"
+	],
+	"scripts": [
+		"static/lib/main.js"
+	],
+	"templates": "static/templates"
 }

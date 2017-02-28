@@ -1,9 +1,9 @@
-<!-- <h1>Custom Registration Fields</h1>
+<h1>Custom Registration Fields</h1>
 <hr />
 
 <form>
 	<p>
-		Select new fields that user should fill in during registration
+		Hera are the new fields that user should fill in during registration
 	</p><br />
 	<div class="alert alert-info">
 		<p>
@@ -16,11 +16,3 @@
 		</p>
 	</div>
 </form>
-
-<button class="btn btn-lg btn-primary" id="save">Save</button>
-
-<script>
-	require(['admin/settings'], function(Settings) {
-		Settings.prepare();
-	});
-</script> -->
