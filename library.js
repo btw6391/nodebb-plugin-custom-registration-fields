@@ -136,38 +136,16 @@ plugin.addField = function(params, callback) {
 };
 
 plugin.checkField = function(params, callback) {
-    console.dir(customFields);
+    var userData = params.userData;
 
-    // for(var key in customFields) {
+    for(var key in customFields) {
 
-    //     switch(key) {
-    //         case 'npi':
-    //             var answer = meta.config['npi:answer'];
-    //             break;
-            
-    //         case 'institution':
-    //             var answer = meta.config['institution:answer'];
-    //             break;
-            
-    //         case 'practicetype':
-    //             var answer = meta.config['practicetype:answer'];
-    //             break;
-            
-    //         case 'specialty':
-    //             var answer = meta.config['specialty:answer'];
-    //             break;
-            
-    //         case 'practiceyears':
-    //             var answer = meta.config['practiceyears:answer'];
-    //             break;
-    //     }
+        if (userData[key] == "" || userData[key] == undefined) {
+            callback({message: 'Please complete all fields before registering.'}, params);
+        }
 
-    //     if (answer == "" || answer == undefined) {
-    //         callback({source: answer, message: 'Please complete all fields before registering.'}, params);
-    //     }
-
-    //     console.log("Answer: " + answer);
-    // }
+        console.log("Answer: " + answer);
+    }
 
     callback(null, params);
 };
