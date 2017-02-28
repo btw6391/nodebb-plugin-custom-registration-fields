@@ -171,36 +171,38 @@ plugin.addField = function(params, callback) {
 };
 
 plugin.checkField = function(params, callback) {
-    for(var key in customFields) {
+    console.dir(params);
 
-        switch(key) {
-            case 'npi':
-                var answer = meta.config['npi:answer'];
-                break;
-            
-            case 'institution':
-                var answer = meta.config['institution:answer'];
-                break;
-            
-            case 'practicetype':
-                var answer = meta.config['practicetype:answer'];
-                break;
-            
-            case 'speciality':
-                var answer = meta.config['speciality:answer'];
-                break;
-            
-            case 'practiceyears':
-                var answer = meta.config['practiceyears:answer'];
-                break;
-        }
+    // for(var key in customFields) {
 
-        if (answer == "" || answer == undefined) {
-            callback({source: answer, message: 'Please complete all fields before registering.'}, params);
-        }
+    //     switch(key) {
+    //         case 'npi':
+    //             var answer = meta.config['npi:answer'];
+    //             break;
+            
+    //         case 'institution':
+    //             var answer = meta.config['institution:answer'];
+    //             break;
+            
+    //         case 'practicetype':
+    //             var answer = meta.config['practicetype:answer'];
+    //             break;
+            
+    //         case 'speciality':
+    //             var answer = meta.config['speciality:answer'];
+    //             break;
+            
+    //         case 'practiceyears':
+    //             var answer = meta.config['practiceyears:answer'];
+    //             break;
+    //     }
 
-        console.log("Answer: " + answer);
-    }
+    //     if (answer == "" || answer == undefined) {
+    //         callback({source: answer, message: 'Please complete all fields before registering.'}, params);
+    //     }
+
+    //     console.log("Answer: " + answer);
+    // }
 
     callback(null, params);
 };
