@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-custom-registration-fields",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Adds custom fields to user registration page to input additional profile data",
   "main": "library.js",
   "scripts": {
