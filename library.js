@@ -7,6 +7,7 @@ var customFields = {
         speciality : "",
         practiceyears : ""
     },
+    user = module.parent.require('./user');
 	meta = module.parent.require('./meta'),
     db = module.parent.require('./database'),
     plugin = {};
@@ -62,6 +63,8 @@ plugin.customHeaders = function(headers, callback) {
         headers.headers.push({
             label: '[[user:' + field + ']]',
         });
+
+        console.log("Custom Header: " + field);
     }
 
     callback(null, headers);
@@ -101,6 +104,8 @@ plugin.customFields = function(params, callback) {
             user.customRows.push({value: user[field]});
             return user;
         });
+
+        console.log("Custom Field: " + user[field]);
     }
 
     callback(null, {users: users});
@@ -108,10 +113,6 @@ plugin.customFields = function(params, callback) {
 
 plugin.addField = function(params, callback) {
     for(var key in customFields) {
-        // var fieldText = key + ':field';
-        // var field = meta.config[fieldText];
-        
-        // console.log("Field: " + fieldText);
         
         if (key == "") {
             callback(null, params);
@@ -130,17 +131,17 @@ plugin.addField = function(params, callback) {
                 break;
             
             case 'practicetype':
-                var html = '<select class="form-control" name="practicetype" id="practicetype"><option value="default" disabled="disabled">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select>';
+                var html = '<select class="form-control" name="practicetype" id="practicetype"><option value="" disabled selected>Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select>';
                 var label = "Practice Type";
                 break;
             
             case 'speciality':
-                var html = '<select class="form-control" name="speciality" id="speciality"><option value="default" disabled="disabled">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select>';
+                var html = '<select class="form-control" name="speciality" id="speciality"><option value="" disabled selected>Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select>';
                 var label = "Speciality";
                 break;
             
             case 'practiceyears':
-                var html = '<select class="form-control" name="practiceyears" id="practiceyears"><option value="default" disabled="disabled">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select>';
+                var html = '<select class="form-control" name="practiceyears" id="practiceyears"><option value="" disabled selected>Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select>';
                 var label = "Practice Years";
                 break;
         }
@@ -241,14 +242,18 @@ plugin.createUser = function(params, callback) {
         }
     }
 
-    // db.setObject('user:' + userData.uid + ':ns:custom_fields', data, function(err) {
+    // db.setObject('user:' + userData.uid + ':ns:custom_fields', customFields, function(err) {
     //     if (err) {
     //         return callback(err);
     //     }
     // });
 
-    console.log(customFields);
+    console.log("Custom Fields: " + customFields);
     console.dir(userData);
+
+    user.getUsers([2], 1, function(err, users) {
+        console.log(users);
+    });
 
     callback(null, userData);
 };
@@ -297,6 +302,10 @@ plugin.addToApprovalQueue = function(params, callback) {
 
     console.dir(userData);
     console.log(customFields);
+    
+    user.getUsers([2], 1, function(err, users) {
+        console.log(users);
+    });
 
     callback(null, {data: userData});
 };
