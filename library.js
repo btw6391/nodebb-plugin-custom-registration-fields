@@ -191,7 +191,7 @@ plugin.checkField = function(params, callback) {
         }
 
         if (answer == "" || answer == undefined) {
-            callback({source: answer, message: 'not-filled'}, params);
+            callback({source: answer, message: 'Please complete all fields before registering.'}, params);
         }
 
         console.log("Answer: " + answer);
