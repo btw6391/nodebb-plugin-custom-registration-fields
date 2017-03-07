@@ -104,7 +104,7 @@ plugin.addField = function(params, callback) {
                 break;
             
             case 'practicetype':
-                var html = '<select class="form-control" name="practicetype" id="practicetype"><option value="" disabled="" selected="">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select><span class="custom-feedback" id="practice-notify"></span><span class="help-block">Choose your current setting type.</span>';
+                var html = '<select class="form-control" name="practicetype" id="practicetype"><option value="" disabled="" selected="">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select><span class="custom-feedback" id="practice-notify"></span><span class="help-block">Choose your current practice type.</span>';
                 var label = "Practice Type";
                 break;
             
