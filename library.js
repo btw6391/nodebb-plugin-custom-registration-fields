@@ -99,7 +99,7 @@ plugin.addField = function(params, callback) {
                 break;
             
             case 'institution':
-                var html = '<input class="form-control" type="text" name="institution" id="institution" placeholder="Enter Institution"><span class="custom-feedback" id="institution-notify"></span><span class="help-block">Your current institution or place of business.</span>';
+                var html = '<input class="form-control" type="text" name="institution" id="institution" placeholder="Enter Institution"><span class="custom-feedback" id="institution-notify"></span>';
                 var label = "Institution";
                 break;
             
@@ -109,12 +109,12 @@ plugin.addField = function(params, callback) {
                 break;
             
             case 'specialty':
-                var html = '<select class="form-control" name="specialty" id="specialty"><option value="" disabled="" selected="">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select><span class="custom-feedback" id="specialty-notify"></span><span class="help-block">Choose a specialty type that best describes your discipline.</span>';
+                var html = '<select class="form-control" name="specialty" id="specialty"><option value="" disabled="" selected="">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select><span class="custom-feedback" id="specialty-notify"></span>';
                 var label = "Specialty";
                 break;
             
             case 'practiceyears':
-                var html = '<select class="form-control" name="practiceyears" id="practiceyears"><option value="" disabled="" selected="">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select><span class="custom-feedback" id="years-notify"></span><span class="help-block">Choose a range of years that best describes your experience level.</span>';
+                var html = '<select class="form-control" name="practiceyears" id="practiceyears"><option value="" disabled="" selected="">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select><span class="custom-feedback" id="years-notify"></span>';
                 var label = "Practice Years";
                 break;
         }
@@ -140,7 +140,18 @@ plugin.checkField = function(params, callback) {
 
     for(var key in customFields) {
 
-        if (userData[key] == "" || userData[key] == undefined) {
+        var value = userData[key];
+
+        if (key == 'npi') {
+            if (value.length != 10) {
+                error = {message: 'NPI # must be 10 digits'};
+            }
+            else if (!/^[0-9]+$/.test(value)) {
+                error = {message: 'NPI # must be a numerical value'};
+            }
+        }
+
+        else if (value == "" || value == undefined) {
             error = {message: 'Please complete all fields before registering.'};
         }
     }
