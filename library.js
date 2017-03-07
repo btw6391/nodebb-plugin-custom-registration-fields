@@ -49,7 +49,7 @@ plugin.customHeaders = function(headers, callback) {
                 break;
             
             case 'specialty':
-                var label = "specialty";
+                var label = "Specialty";
                 break;
             
             case 'practiceyears':
@@ -94,27 +94,27 @@ plugin.addField = function(params, callback) {
 
         switch(key) {
             case 'npi':
-                var html = '<input class="form-control" name="npi" id="npi" placeholder="Enter NPI #" />';
+                var html = '<input class="form-control" type="text" name="npi" id="npi" placeholder="Enter NPI #"><span class="custom-feedback" id="npi-notify"></span><span class="help-block">A unique 10-digit identification number.</span>';
                 var label = "NPI #";
                 break;
             
             case 'institution':
-                var html = '<input class="form-control" name="institution" id="institution" placeholder="Enter Institution" />';
+                var html = '<input class="form-control" type="text" name="institution" id="institution" placeholder="Enter Institution"><span class="custom-feedback" id="institution-notify"></span><span class="help-block">Your current institution or place of business.</span>';
                 var label = "Institution";
                 break;
             
             case 'practicetype':
-                var html = '<select class="form-control" name="practicetype" id="practicetype"><option value="" disabled selected>Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select>';
+                var html = '<select class="form-control" name="practicetype" id="practicetype"><option value="" disabled="" selected="">Select your practice type</option><option value="1">Academic</option><option value="2">Community</option><option value="3">Hospital</option></select><span class="custom-feedback" id="practice-notify"></span><span class="help-block">Choose your current setting type.</span>';
                 var label = "Practice Type";
                 break;
             
             case 'specialty':
-                var html = '<select class="form-control" name="specialty" id="specialty"><option value="" disabled selected>Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select>';
-                var label = "specialty";
+                var html = '<select class="form-control" name="specialty" id="specialty"><option value="" disabled="" selected="">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select><span class="custom-feedback" id="specialty-notify"></span><span class="help-block">Choose a specialty type that best describes your discipline.</span>';
+                var label = "Specialty";
                 break;
             
             case 'practiceyears':
-                var html = '<select class="form-control" name="practiceyears" id="practiceyears"><option value="" disabled selected>Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select>';
+                var html = '<select class="form-control" name="practiceyears" id="practiceyears"><option value="" disabled="" selected="">Select your years in practice</option><option value="1">In Training</option><option value="2">1 to 3 Years</option><option value="3">4 to 7 Years</option><option value="4">8 to 10 Years</option><option value="5">&gt;10 Years</option></select><span class="custom-feedback" id="years-notify"></span><span class="help-block">Choose a range of years that best describes your experience level.</span>';
                 var label = "Practice Years";
                 break;
         }
