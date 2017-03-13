@@ -8,21 +8,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/btw6391/node-plugin-custom-registration-fields.git"
+    "url": "git+https://github.com/btw6391/nodebb-plugin-custom-registration-fields.git"
   },
   "keywords": [
     "NodeBB",
     "plugin",
     "custom",
     "registration",
-    "field"
+    "fields"
   ],
   "author": "btw6391 <btw6391@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/btw6391/node-plugin-custom-registration-fields/issues"
+    "url": "https://github.com/btw6391/nodebb-plugin-custom-registration-fields/issues"
   },
-  "homepage": "https://github.com/btw6391/node-plugin-custom-registration-fields#readme",
+  "homepage": "https://github.com/btw6391/nodebb-plugin-custom-registration-fields#readme",
   "nbbpm": {
     "compatibility": "^1.4.0"
   }
