@@ -1,4 +1,4 @@
-# Plugin to add custom registratio fields to the NodeBB registration form
+# Plugin to add custom registration fields to the NodeBB registration form
 
 This plugin was created to add custom fields to the registration page and link the data to custom profile fields generated using [Nicolas Siver's Custom Fields Plugin](https://github.com/NicolasSiver/nodebb-plugin-ns-custom-fields).
 
