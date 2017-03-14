@@ -73,17 +73,17 @@ plugin.customFields = function(params, callback) {
 
         if (user['username'] == currentUsername) {
             for(var key in customFields) {
-                    user.customRows = [];
+                user.customRows = [];
 
-                    user.customRows.push({value: customFields[key]});
+                user.customRows.push({value: customFields[key]});
 
-                    console.log("Adding to queue: " + customFields[key]);
-                }
+                console.log("Adding to queue: " + customFields[key]);
             }
         }
-        return user;
         console.log("New user: ");
         console.dir(user);
+
+        return user;
     });
 
     callback(null, {users: users});
