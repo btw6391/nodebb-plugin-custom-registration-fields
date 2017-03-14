@@ -7,7 +7,7 @@ var customFields = {
         specialty : "",
         practiceyears : ""
     },
-    addedData = [],
+    customData = [],
     user = module.parent.require('./user'),
     db = module.parent.require('./database'),
     plugin = {};
@@ -68,21 +68,13 @@ plugin.customHeaders = function(headers, callback) {
 
 plugin.customFields = function(params, callback) {    
     var users = params.users.map(function(user) {
-        console.log("Old user: ");
-        console.dir(user);
 
         if (!user.customRows) {
             user.customRows = [];
 
             for(var key in customFields) {
-
                 user.customRows.push({value: customFields[key]});
-
-                console.log("Adding to queue: " + customFields[key]);
             }
-
-            console.log("New user: ");
-            console.dir(user);
         }
 
         return user;
@@ -166,25 +158,35 @@ plugin.checkField = function(params, callback) {
     callback(error, params);
 };
 
-plugin.creatingUser = function(params) {
+plugin.creatingUser = function(params, callback) {
     console.log("Creating...");
     console.dir(params);
+
+    customData = params.data.customRows;
 
     callback(error, params);
 };
 
-// plugin.createdUser = function(params) {
-//     console.log("Created!");
-//     console.dir(params);
+plugin.createdUser = function(params) {
+    console.log("Created!");
+    console.dir(params);
 
-//     var keyID = 'user:' + params.uid + ':ns:custom_fields';
+    var addCustomData = {
+        npi : customData[0].value, 
+        institution : customData[1].value,
+        practicetype : customData[2].value,
+        specialty : customData[3].value,
+        practiceyears : customData[4].value
+    }
 
-//     db.setObject(keyID, customFields, function(err) {
-//         if (err) {
-//             return callback(err);
-//         }
-//     });
-// };
+    var keyID = 'user:' + params.uid + ':ns:custom_fields';
+
+    db.setObject(keyID, addCustomData, function(err) {
+        if (err) {
+            return callback(err);
+        }
+    });
+};
 
 plugin.addToApprovalQueue = function(params, callback) {
     var data = params.data;
