@@ -7,6 +7,7 @@ var customFields = {
         specialty : "",
         practiceyears : ""
     },
+    addedData = [],
     user = module.parent.require('./user'),
     db = module.parent.require('./database'),
     plugin = {};
@@ -165,7 +166,19 @@ plugin.checkField = function(params, callback) {
     callback(error, params);
 };
 
-plugin.createUser = function(params) {
+plugin.creatingUser = function(params) {
+    console.log("Creating...");
+    console.dir(params);
+
+    addedData = params.data.customRows[0];
+
+    callback(error, params);
+};
+
+plugin.createdUser = function(params) {
+    console.log("Created!");
+    console.dir(params);
+
     var keyID = 'user:' + params.uid + ':ns:custom_fields';
 
     db.setObject(keyID, customFields, function(err) {
@@ -173,8 +186,6 @@ plugin.createUser = function(params) {
             return callback(err);
         }
     });
-
-    console.dir(customFields);
 };
 
 plugin.addToApprovalQueue = function(params, callback) {
