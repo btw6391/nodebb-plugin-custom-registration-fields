@@ -65,21 +65,20 @@ plugin.customHeaders = function(headers, callback) {
     callback(null, headers);
 };
 
-plugin.customFields = function(params, callback) {
-    for(var key in customFields) {
-        
-        var users = params.users.map(function(user) {
-            if (!user.customRows) {
-                user.customRows = [];
+plugin.customFields = function(params, callback) {    
+    var users = params.users.map(function(user) {
+        if (!user.customRows) {
+            user.customRows = [];
+
+            for(var key in customFields) {
+                user.customRows.push({value: customFields[key]});
+
+                console.log("Adding to queue: " + customFields[key]);
             }
-            user.customRows.push({value: customFields[key]});
-            return user;
-        });
+        }
 
-        console.log("Custom Value: " + customFields[key]);
-    }
-
-    console.dir(users);
+        return user;
+    });
 
     callback(null, {users: users});
 };
@@ -168,12 +167,12 @@ plugin.createUser = function(params) {
         }
     });
 
-    console.log(keyID);
     console.dir(customFields);
 };
 
 plugin.addToApprovalQueue = function(params, callback) {
     var userData = params.data;
+    console.log("Data before adding: " + userData);
 
     for (var key in customFields) {
 
@@ -203,6 +202,8 @@ plugin.addToApprovalQueue = function(params, callback) {
 
         console.log("Field data: " + fieldData);
     }
+
+    console.log("Data adding: " + userData);
 
     callback(null, {data: userData});
 };
