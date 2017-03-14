@@ -159,18 +159,12 @@ plugin.checkField = function(params, callback) {
 };
 
 plugin.creatingUser = function(params, callback) {
-    console.log("Creating...");
-    console.dir(params);
-
     customData = params.data.customRows;
 
     callback(null, params);
 };
 
 plugin.createdUser = function(params) {
-    console.log("Created!");
-    console.dir(params);
-
     var addCustomData = {
         npi : customData[0].value, 
         institution : customData[1].value,
