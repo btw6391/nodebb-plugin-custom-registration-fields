@@ -164,7 +164,7 @@ plugin.creatingUser = function(params, callback) {
 
     customData = params.data.customRows;
 
-    callback(error, params);
+    callback(null, params);
 };
 
 plugin.createdUser = function(params) {
