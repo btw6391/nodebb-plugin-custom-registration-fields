@@ -7,6 +7,7 @@ var customFields = {
         specialty : "",
         practiceyears : ""
     },
+    currentUsername = "",
     user = module.parent.require('./user'),
     db = module.parent.require('./database'),
     plugin = {};
@@ -67,18 +68,22 @@ plugin.customHeaders = function(headers, callback) {
 
 plugin.customFields = function(params, callback) {    
     var users = params.users.map(function(user) {
+        console.log("Old user: ");
         console.dir(user);
 
-        for(var key in customFields) {
-            if (!user[key]) {
-                user[key] = customFields[key];
+        if (user['username'] == currentUsername) {
+            for(var key in customFields) {
+                    user.customRows = [];
 
-                // user.customRows.push({value: customFields[key]});
+                    user.customRows.push({value: customFields[key]});
 
-                console.log("Adding to queue: " + customFields[key]);
+                    console.log("Adding to queue: " + customFields[key]);
+                }
             }
         }
         return user;
+        console.log("New user: ");
+        console.dir(user);
     });
 
     callback(null, {users: users});
@@ -173,8 +178,10 @@ plugin.createUser = function(params) {
 
 plugin.addToApprovalQueue = function(params, callback) {
     var userData = params.data;
-    console.log("Data before adding: ");
-    console.dir(userData);
+    console.log("Params: ");
+    console.dir(params);
+
+    currentUsername = userData['username'];
 
     for (var key in customFields) {
 
@@ -201,12 +208,10 @@ plugin.addToApprovalQueue = function(params, callback) {
         }
         
         customFields[key] = fieldData;
-
-        console.log("Field data: " + fieldData);
     }
 
-    console.log("Data adding: ");
-    console.dir(userData);
+    console.log("Custom field data added: ");
+    console.dir(customFields);
 
     callback(null, {data: userData});
 };
