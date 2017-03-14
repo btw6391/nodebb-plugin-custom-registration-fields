@@ -170,23 +170,21 @@ plugin.creatingUser = function(params) {
     console.log("Creating...");
     console.dir(params);
 
-    addedData = params.data.customRows[0];
-
     callback(error, params);
 };
 
-plugin.createdUser = function(params) {
-    console.log("Created!");
-    console.dir(params);
+// plugin.createdUser = function(params) {
+//     console.log("Created!");
+//     console.dir(params);
 
-    var keyID = 'user:' + params.uid + ':ns:custom_fields';
+//     var keyID = 'user:' + params.uid + ':ns:custom_fields';
 
-    db.setObject(keyID, customFields, function(err) {
-        if (err) {
-            return callback(err);
-        }
-    });
-};
+//     db.setObject(keyID, customFields, function(err) {
+//         if (err) {
+//             return callback(err);
+//         }
+//     });
+// };
 
 plugin.addToApprovalQueue = function(params, callback) {
     var data = params.data;
