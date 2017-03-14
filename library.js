@@ -70,12 +70,12 @@ plugin.customFields = function(params, callback) {
         console.log("Old user: ");
         console.dir(user);
 
-        if (!user.customFields) {
-            user.customFields = [];
+        if (!user.customRows) {
+            user.customRows = [];
 
             for(var key in customFields) {
 
-                user.customFields.push({value: customFields[key]});
+                user.customRows.push({value: customFields[key]});
 
                 console.log("Adding to queue: " + customFields[key]);
             }
@@ -181,6 +181,8 @@ plugin.addToApprovalQueue = function(params, callback) {
     var data = params.data;
     var userData = params.userData;
 
+    data.customRows = [];
+
     for (var key in customFields) {
 
         switch(key) {
@@ -206,11 +208,8 @@ plugin.addToApprovalQueue = function(params, callback) {
         }
         
         customFields[key] = fieldData;
+        data.customRows.push({value: customFields[key]});
     }
-
-    data.customFields = customFields;
-    
-    console.dir(data);
 
     callback(null, {data: data, userData: userData});
 };
