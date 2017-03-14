@@ -7,7 +7,6 @@ var customFields = {
         specialty : "",
         practiceyears : ""
     },
-    currentUsername = "",
     user = module.parent.require('./user'),
     db = module.parent.require('./database'),
     plugin = {};
@@ -71,17 +70,19 @@ plugin.customFields = function(params, callback) {
         console.log("Old user: ");
         console.dir(user);
 
-        if (user['username'] == currentUsername) {
-            for(var key in customFields) {
-                user.customRows = [];
+        if (!user.customFields) {
+            user.customFields = [];
 
-                user.customRows.push({value: customFields[key]});
+            for(var key in customFields) {
+
+                user.customFields.push({value: customFields[key]});
 
                 console.log("Adding to queue: " + customFields[key]);
             }
+
+            console.log("New user: ");
+            console.dir(user);
         }
-        console.log("New user: ");
-        console.dir(user);
 
         return user;
     });
@@ -177,11 +178,8 @@ plugin.createUser = function(params) {
 };
 
 plugin.addToApprovalQueue = function(params, callback) {
-    var userData = params.data;
-    console.log("Params: ");
-    console.dir(params);
-
-    currentUsername = userData['username'];
+    var data = params.data;
+    var userData = params.userData;
 
     for (var key in customFields) {
 
@@ -210,10 +208,11 @@ plugin.addToApprovalQueue = function(params, callback) {
         customFields[key] = fieldData;
     }
 
-    console.log("Custom field data added: ");
-    console.dir(customFields);
+    data.customFields = customFields;
+    
+    console.dir(data);
 
-    callback(null, {data: userData});
+    callback(null, {data: data, userData: userData});
 };
 
 plugin.onRegisterComplete = function(data, callback) {
