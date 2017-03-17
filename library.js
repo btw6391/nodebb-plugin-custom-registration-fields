@@ -219,11 +219,6 @@ plugin.addToApprovalQueue = function(params, callback) {
     callback(null, {data: data, userData: userData});
 };
 
-plugin.onRegisterComplete = function(data, callback) {
-    data.referrer = 'https://http://45.55.167.216:4567/login';
-    callback(null, data);
-}
-
 function renderAdmin(req, res, next) {
 	res.render('admin/custom-registration-fields', {fields: customFields});
 }

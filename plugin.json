@@ -13,8 +13,7 @@
         { "hook": "filter:user.getRegistrationQueue", "method": "customFields" },
         { "hook": "filter:user.create", "method": "creatingUser" },
 		{ "hook": "action:user.create", "method": "createdUser" },
-        { "hook": "filter:user.addToApprovalQueue", "method": "addToApprovalQueue" },
-        { "hook": "filter:register.complete", "method": "onRegisterComplete" }
+        { "hook": "filter:user.addToApprovalQueue", "method": "addToApprovalQueue" }
 	],
 	"staticDirs": {
 		"static": "./static"
