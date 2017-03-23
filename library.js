@@ -108,7 +108,7 @@ plugin.addField = function(params, callback) {
                 break;
             
             case 'specialty':
-                var html = '<select class="form-control" name="specialty" id="specialty"><option value="" disabled="" selected="">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option></select><span class="custom-feedback" id="specialty-notify"></span>';
+                var html = '<select class="form-control" name="specialty" id="specialty"><option value="" disabled="" selected="">Select your specialty</option><option value="1">Oncology</option><option value="2">Hematology</option><option value="3">Oncology/Hematology</option><option value="4">Radiation Oncology</option><option value="5">Nuclear Medicine</option><option value="5">Surgery</option></select><span class="custom-feedback" id="specialty-notify"></span>';
                 var label = "Specialty";
                 break;
             
